@@ -20,6 +20,9 @@ on:
         - OpenAPIV2Yaml
         - OpenAPIV2Json
 
+permissions:
+  id-token: write
+
 env:
   apiops_release_version: v6.0.1.4
 

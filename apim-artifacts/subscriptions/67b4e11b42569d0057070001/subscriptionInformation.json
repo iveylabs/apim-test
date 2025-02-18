@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "scope": "/subscriptions/ebdcf40f-850b-442d-8751-f50b91715851/resourceGroups/apiops-rg/providers/Microsoft.ApiManagement/service/apiveyops/products/starter",
+    "allowTracing": false,
+    "ownerId": "/subscriptions/ebdcf40f-850b-442d-8751-f50b91715851/resourceGroups/apiops-rg/providers/Microsoft.ApiManagement/service/apiveyops/users/1",
+    "state": "active"
+  }
+}

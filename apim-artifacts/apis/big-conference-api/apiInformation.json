@@ -1,0 +1,21 @@
+{
+  "properties": {
+    "path": "conference",
+    "apiRevision": "1",
+    "authenticationSettings": {},
+    "contact": {},
+    "description": "Sample hypermedia API designed by Darrel Miller running in an API App on App Service.",
+    "isCurrent": true,
+    "displayName": "Big Conference API",
+    "protocols": [
+      "http",
+      "https"
+    ],
+    "serviceUrl": "https://microsoft-apiapp550a1bc9d1494c23ad0cbf144f469c36.azurewebsites.net/",
+    "subscriptionKeyParameterNames": {
+      "header": "Ocp-Apim-Subscription-Key",
+      "query": "subscription-key"
+    },
+    "subscriptionRequired": true
+  }
+}

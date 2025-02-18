@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "API Big Conference API subscription",
+    "scope": "/subscriptions/ebdcf40f-850b-442d-8751-f50b91715851/resourceGroups/apiops-rg/providers/Microsoft.ApiManagement/service/apiveyops/apis/big-conference-api",
+    "allowTracing": false,
+    "state": "active"
+  }
+}

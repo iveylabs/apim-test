@@ -1,0 +1,463 @@
+openapi: 3.0.1
+info:
+  title: Big Conference API
+  description: Sample hypermedia API designed by Darrel Miller running in an API App on App Service.
+  contact: { }
+  version: '1.0'
+servers:
+  - url: http://apiveyops.azure-api.net/conference
+  - url: https://apiveyops.azure-api.net/conference
+paths:
+  /:
+    get:
+      summary: Home_Get
+      description: OpenAPI (fka Swagger) document to describe API
+      operationId: Home_Get
+      parameters:
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Get200ApplicationJsonResponse'
+              example: string
+  '/Session/{sessionId}/Rating':
+    get:
+      summary: Session_GetRatingBySessionid
+      description: Get rating for a conference session by its id.
+      operationId: Session_GetRatingBySessionid
+      parameters:
+        - name: sessionId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Post your rating for this session
+      description: Post your rating for this session
+      operationId: Session_PostRatingById
+      parameters:
+        - name: sessionId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: UserId
+          in: query
+          schema:
+            type: string
+        - name: IsSpeaker
+          in: query
+          schema:
+            type: boolean
+        - name: PostingDate
+          in: query
+          description: Format - date (as full-date in RFC3339).
+          schema:
+            type: string
+            format: date
+        - name: AdminKey
+          in: header
+          description: 6 digit user id
+          schema:
+            type: string
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body'
+            example: 87
+      responses:
+        '200':
+          description: OK
+  /days:
+    get:
+      summary: Days_Get
+      operationId: Days_Get
+      parameters:
+        - name: SessionFilter
+          in: query
+          schema:
+            type: string
+        - name: LevelFilter
+          in: query
+          description: Format - int32.
+          schema:
+            type: integer
+            format: int32
+        - name: DateFilter
+          in: query
+          schema:
+            type: string
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+        - name: AdminKey
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionArray'
+              example:
+                - presenter: string
+                  description: string
+                  sessionId: 0
+  '/session/{id}':
+    get:
+      summary: Session_GetById
+      operationId: Session_GetById
+      parameters:
+        - name: id
+          in: path
+          description: Format - int32. Format - int32.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              example:
+                presenter: string
+                description: string
+                sessionId: 0
+    delete:
+      summary: Delete a session
+      description: Delete a session
+      operationId: Session_DeleteById
+      parameters:
+        - name: id
+          in: path
+          description: Format - int32. Format - int32.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: UserId
+          in: header
+          description: 6 digit user ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  '/session/{id}/topics':
+    get:
+      summary: Session_GetTopicsBySessionById
+      operationId: Session_GetTopicsBySessionById
+      parameters:
+        - name: id
+          in: path
+          description: Format - int32. Format - int32.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: subscription-key
+          in: query
+          description: subscription key in url
+          schema:
+            type: string
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              example:
+                presenter: string
+                description: string
+                sessionId: 0
+  /sessions:
+    get:
+      summary: Sessions_Get
+      operationId: Sessions_Get
+      parameters:
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionArray'
+              example:
+                - presenter: string
+                  description: string
+                  sessionId: 0
+  /sessions/byspeakerid:
+    get:
+      summary: Sessions_GetSessionsBySpeakerBySpeakerid
+      operationId: Sessions_GetSessionsBySpeakerBySpeakerid
+      parameters:
+        - name: speakerId
+          in: query
+          description: Format - int32. Format - int32.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionArray'
+              example:
+                - presenter: string
+                  description: string
+                  sessionId: 0
+  /sessions/byspeakername:
+    get:
+      summary: Sessions_GetSessionsBySpeakerNameBySpeakername
+      operationId: Sessions_GetSessionsBySpeakerNameBySpeakername
+      parameters:
+        - name: speakername
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionArray'
+              example:
+                - presenter: string
+                  description: string
+                  sessionId: 0
+  /speakers:
+    get:
+      summary: Speakers_Get
+      operationId: Speakers_Get
+      parameters:
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  '/topic/{id}':
+    get:
+      summary: Topic_GetTopicById
+      operationId: Topic_GetTopicById
+      parameters:
+        - name: id
+          in: path
+          description: Format - int32. Format - int32.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  '/topic/{id}/sessions':
+    get:
+      summary: Topic_GetSessionsByTopicById
+      operationId: Topic_GetSessionsByTopicById
+      parameters:
+        - name: id
+          in: path
+          description: Format - int32. Format - int32.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionArray'
+              example:
+                - presenter: string
+                  description: string
+                  sessionId: 0
+  /topics:
+    get:
+      summary: Topics_Get
+      operationId: Topics_Get
+      parameters:
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: subscription key in header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Add Topic
+      description: Add Topic
+      operationId: Topics_Post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body-1'
+            example: string
+          text/plain:
+            schema:
+              $ref: '#/components/schemas/Body-1'
+            examples:
+              default:
+                value: 
+      responses:
+        '200':
+          description: OK
+    put:
+      summary: Update Topic
+      description: Update Topic
+      operationId: Topics_Put
+      parameters:
+        - name: TopicId
+          in: query
+          description: Format - int32.
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body-2'
+            example: string
+          text/plain:
+            schema:
+              $ref: '#/components/schemas/Body-2'
+            examples:
+              default:
+                value: 
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Delete Topic
+      description: Delete Topic
+      operationId: Topics_Delete
+      parameters:
+        - name: Topic Id
+          in: query
+          description: Format - int32.
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    Session:
+      required:
+        - presenter
+        - sessionId
+      type: object
+      properties:
+        presenter:
+          type: string
+        description:
+          type: string
+        sessionId:
+          type: integer
+          format: int32
+      description: A session object
+    Get200ApplicationJsonResponse:
+      type: string
+    Body:
+      type: integer
+      format: int32
+      example: 87
+    SessionArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Session'
+    Body-1:
+      type: string
+    Body-2:
+      type: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

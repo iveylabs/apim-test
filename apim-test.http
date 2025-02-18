@@ -1,0 +1,6 @@
+@apim_test_HostAddress = http://localhost:5108
+
+GET {{apim_test_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
